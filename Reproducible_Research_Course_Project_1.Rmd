@@ -49,7 +49,9 @@ head(no_of_steps)
 #### 2. Histogram of the total number of steps taken each day
 
 ```{r}
+png("Q_2_Histogram_Total_Steps.png")
 hist(no_of_steps$steps, xlab="Number of steps per day", ylab="Frequency", main="Total number of steps taken each day", col="light blue")
+dev.off()
 ```
 
 <p>&nbsp;</p>
@@ -76,7 +78,9 @@ print(paste("Median number of steps taken each day:", median_steps))
 
 ```{r}
 steps_interval <- aggregate(steps~interval, data=activity_data, mean, na.rm=TRUE)
+png("Q_4_Time_Series_Average_Steps.png")
 plot(steps~interval, data=steps_interval, type="l", col="brown")
+dev.off()
 ```
 
 <p>&nbsp;</p>
@@ -121,7 +125,9 @@ head(activity_fill_missing)
 
 ```{r}
 no_of_steps_new <- aggregate(steps~date, activity_fill_missing, sum, na.rm=TRUE)
+png("Q_7_Histogram_Total_Steps_After_Imputed_Missing_Values.png")
 hist(no_of_steps_new$steps, xlab="Number of steps per day", ylab="Frequency", main="Total number of steps taken each day after imputing missing values", col="light blue")
+dev.off()
 ```
 
 * Mean of the total number of steps taken per day with new dataset after missing values are imputed
@@ -168,12 +174,14 @@ head(activity_fill_missing)
 ```{r}
 library(ggplot2)
 steps_new_by_day <- aggregate(steps~interval+day, activity_fill_missing, mean, na.rm=TRUE)
+png("Q_8_Panel_Plot_Average_Steps_Weekdays_vs_Weekends.png")
 plot <- ggplot(steps_new_by_day, aes(x=interval, y=steps, color=day)) +
           geom_line() +
           labs(title="Average Number of Steps By Day", x="Interval", y="Average Number of Steps") +
           facet_wrap(~day, ncol=1, nrow=2) +
           theme(plot.title = element_text(hjust = 0.5))
 print(plot)
+dev.off()
 ```
 
 ***The time series plots of Weekday vs Weekend shows that for Weekday maximum walking was done in the interval of 500-1000 and for Weekend maximum walking was done in the interval of 800-1700.***
